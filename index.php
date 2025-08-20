@@ -11,10 +11,18 @@ $weeks = [
     [
         'number' => '02',
         'title' => 'Tuần 2', 
-        'description' => '',
+        'description' => 'Truyền dữ liệu với Get/Post - Lưu trữ trong Session và Cookie',
         'link' => 'Week2/Week2.php',
-        'status' => 'coming_soon'
+        'status' => 'active'
     ],
+    [
+        'number' => '03',
+        'title' => 'Tuần 3', 
+        'description' => '',
+        'link' => '',
+        'status' => 'in-coming'
+    ],
+    
 ];
 
 // Thông tin trang
@@ -47,7 +55,7 @@ $progress_percentage = getProgress($weeks);
 </head>
 <body>
     <div class="container">
-        <!-- Header Section -->
+   
         <div class="header-section">
             <h1>⚡ LẬP TRÌNH WEB</h1>
             <div class="semester-info">
@@ -75,7 +83,7 @@ $progress_percentage = getProgress($weeks);
             </div>
         </div>
 
-        <!-- Weeks Grid -->
+ 
         <div class="weeks-grid">
             <?php foreach ($weeks as $index => $week): ?>
                 <?php if ($week['status'] === 'active'): ?>
@@ -103,7 +111,7 @@ $progress_percentage = getProgress($weeks);
             <?php endforeach; ?>
         </div>
 
-        <!-- Footer Info -->
+       
         <div class="footer-info">
             <div>💡 Các tuần học mới sẽ được cập nhật liên tục trong suốt học kỳ</div>
             <div class="generated-time">
@@ -113,11 +121,11 @@ $progress_percentage = getProgress($weeks);
     </div>
 
     <script>
-        // Interactive effects
+        // hiệu ứng khi hover
         document.addEventListener('DOMContentLoaded', function() {
             const cards = document.querySelectorAll('.week-card:not(.coming-soon)');
             
-            // Hover effects
+           
             cards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
                     createSparkle(this);
@@ -155,7 +163,7 @@ $progress_percentage = getProgress($weeks);
                 }
             }
 
-            // Update progress bar animation
+            
             setTimeout(() => {
                 const progressFill = document.querySelector('.progress-fill');
                 progressFill.style.width = '<?php echo $progress_percentage; ?>%';

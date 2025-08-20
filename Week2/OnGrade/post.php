@@ -21,8 +21,12 @@
         }
         "
      
-      href="./Week1.php">Về trang chủ</a>
+      href="./OnGrade.php">Về trang chủ</a>
     </div>
-<h1>Payment Receipt Upload Form</h1>
+<p>Form sử dụng post</p>
+Tên sách: <?php echo $_POST["bookname"];?> <br>
+Tác giả: <?php echo $_POST["author"];?> <br>
+Nhà xuất bản: <?php echo $_POST["publicinghouse"];?> <br>
+Năm phát hành: <?php echo $_POST["releaseyear"];?> <br>
 </body>
 </html>
