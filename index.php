@@ -16,11 +16,11 @@ $weeks = [
         'status' => 'active'
     ],
     [
-        'number' => '03',
-        'title' => 'Tuần 3', 
-        'description' => '',
-        'link' => '',
-        'status' => 'in-coming'
+        'number' => '08',
+        'title' => 'Tuần 8', 
+        'description' => 'Tạo các bảng truy vấn DB',
+        'link' => 'Week8/employee_list.php',
+        'status' => 'active'
     ],
     
 ];
