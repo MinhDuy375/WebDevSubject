@@ -57,7 +57,7 @@ function get_all_employees()
 function get_employees($employee_id)
 {
     global $conn;
-    connect_db();
+    connect_db(); // ĐÃ SỬA: xóa dấu + thừa
     $sql = "SELECT e.employee_id, e.first_name, e.last_name,
                    e.role_id, e.department_id,
                    r.role_name, d.department_name
@@ -177,4 +177,63 @@ function get_departmentid($department_name)
     $stmt->execute([':name' => $department_name]);
     return $stmt->fetch();
 }
-?>
+
+/**
+ * Lấy tất cả người dùng
+ */
+function get_all_users()
+{
+    global $conn;
+    connect_db();
+    $sql = "SELECT u.*, ur.role_name 
+            FROM users u
+            LEFT JOIN user_roles ur ON u.role_id = ur.id
+            ORDER BY u.id ASC";
+    $stmt = $conn->query($sql);
+    return $stmt->fetchAll();
+}
+
+/**
+ * Lấy ID vai trò người dùng theo tên
+ */
+function get_user_role_id($user_role_name)
+{
+    global $conn;
+    connect_db();
+    $stmt = $conn->prepare("SELECT id FROM user_roles WHERE role_name = :name LIMIT 1");
+    $stmt->execute([':name' => $user_role_name]);
+    return $stmt->fetch();
+}
+
+/**
+ * Lấy danh sách vai trò người dùng
+ */
+function get_user_role()
+{
+    global $conn;
+    connect_db();
+    $stmt = $conn->query("SELECT id, role_name FROM user_roles ORDER BY id ASC");
+    return $stmt->fetchAll();
+}
+
+/**
+ * Thêm người dùng mới
+ * LƯU Ý: $password phải đã được mã hóa trước khi truyền vào
+ */
+function add_user($username, $password, $user_role_name)
+{
+    global $conn;
+    connect_db();
+    $role_id = get_user_role_id($user_role_name);
+
+    if (!$role_id) return false;
+
+    $sql = "INSERT INTO users(user_name, password, role_id)
+            VALUES (:username, :password, :user_role_id)";
+    $stmt = $conn->prepare($sql);
+    return $stmt->execute([
+        ':username'      => $username,
+        ':password'      => $password,
+        ':user_role_id'  => $role_id['id'],
+    ]);
+}

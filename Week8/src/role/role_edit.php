@@ -1,5 +1,6 @@
 <?php
-require 'employee.php';
+require '../employee.php';
+
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $role = [];
 $name = '';
@@ -15,20 +16,27 @@ if (!empty($_POST['edit_role'])) {
     if ($name !== '') {
         $stmt = $conn->prepare("UPDATE roles SET role_name=:name WHERE role_id=:id");
         $stmt->execute([':name' => $name, ':id' => $id]);
-        header("Location: role_list.php"); exit;
+        header("Location: role_list.php");
+        exit;
     }
 }
 disconnect_db();
 ?>
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"><title>Sửa chức vụ</title></head>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa chức vụ</title>
+</head>
+
 <body>
-<h1>Sửa chức vụ</h1>
-<a href="role_list.php">Trở về</a><br><br>
-<form method="post">
-    Tên chức vụ: <input type="text" name="role_name" value="<?php echo $name; ?>">
-    <input type="submit" name="edit_role" value="Lưu">
-</form>
+    <h1>Sửa chức vụ</h1>
+    <a href="role_list.php">Trở về</a><br><br>
+    <form method="post">
+        Tên chức vụ: <input type="text" name="role_name" value="<?php echo $name; ?>">
+        <input type="submit" name="edit_role" value="Lưu">
+    </form>
 </body>
+
 </html>
